@@ -1,0 +1,10 @@
+= form_for @post, remote: true, html: { class: 'post' } do |f|
+  %div{ class: @post.errors[:title] ? "error" : "" }
+    = f.label :title
+    = f.text_field :title
+
+  %div{ class: @post.errors[:content] ? "error" : "" }
+    = f.label :content
+    = f.text_area :content
+
+  = f.submit "Envoyer", disable_with: "En cours..."

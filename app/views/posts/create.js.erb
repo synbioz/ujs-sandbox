@@ -1,0 +1,10 @@
+$("form.post").replaceWith("<%= escape_javascript( render( partial: 'form' ) ) %>");
+
+<% if @success %>
+  $("#post-list").append(
+    "<%= escape_javascript( render( partial: 'list_elem', locals: { post: @new_post } ) ) %>"
+  );
+  window.alert("Votre billet a été créé.");
+<% else %>
+  window.alert("Erreur lors de la création de votre billet.");
+<% end %>
