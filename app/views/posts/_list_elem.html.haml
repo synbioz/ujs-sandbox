@@ -1,3 +1,4 @@
-%li
+%li.post
   = post.title
-  = link_to "Supprimer", post_path(post), remote: true, method: :delete
+  = link_to "Supprimer", post_path(post), remote: true, method: :delete, confirm: "Êtes vous sûr ?", class: 'delete'
+  = link_to "Éditer", edit_post_path(post), remote: true, :'data-type' => 'text', class: 'edit'

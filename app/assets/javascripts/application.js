@@ -14,13 +14,40 @@
 //= require jquery_ujs
 //= require_self
 
-$(document).on('ajax:success', '#post-list a', function() {
+//
+// Comportement lors de la suppression
+//
+
+$(document).on('ajax:success', '#post-list .post a.delete', function() {
   $(this).closest('li').remove();
 });
 
-$(document).on('ajax:error', '#post-list a', function(event, xhr) {
+$(document).on('ajax:error', '#post-list .post a.delete', function(event, xhr) {
   if (xhr.status == 405) {
     $("#post-list").replaceWith(xhr.responseText);
     alert("Le post demandé n'a pas été trouvé.");
+  }
+});
+
+//
+// Comportement lors de l'édition
+//
+
+// Force the Accept header to Javascript
+$(document).on('ajax:beforeSend', '#post-list .post a.edit', function(event, xhr, settings) {
+  xhr.setRequestHeader('accept', settings.accepts.script)
+});
+
+$(document).on('ajax:success', '#post-list .post a.edit', function(event, html) {
+  $(html).insertBefore($('section:first'));
+});
+
+//
+// Comportement général
+//
+
+$(document).on('ajax:error', function(event, xhr) {
+  if (xhr.status == 500 || xhr.status == 0) {
+    alert("Une erreur serveur s'est produite.");
   }
 });

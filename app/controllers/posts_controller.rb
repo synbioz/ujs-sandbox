@@ -9,6 +9,14 @@ class PostsController < ApplicationController
     @post     = @success ? Post.new : @new_post
   end
 
+  def edit
+    @post = Post.find(params[:id])
+    respond_to do |format|
+      format.js { render :edit }
+      format.html
+    end
+  end
+
   def destroy
     post = Post.where(id: params[:id]).first
     if post
